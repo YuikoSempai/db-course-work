@@ -1,9 +1,7 @@
 package com.yuiko.study.api;
 
-import java.util.List;
-
 import com.yuiko.study.api.response.FlowerPageDto;
-import com.yuiko.study.model.Flower;
+import com.yuiko.study.service.FlowerService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,16 +13,16 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RequestMapping(value = "/api/flowers", produces = APPLICATION_JSON_VALUE)
 public class FlowerController {
 
-    @GetMapping("/{id}/flowers")
+    private final FlowerService flowerService;
+
+    public FlowerController(FlowerService flowerService) {
+        this.flowerService = flowerService;
+    }
+
+    @GetMapping("/{userId}/flowers")
     public FlowerPageDto getFlowers(
-            @PathVariable(value = "id") long id
+            @PathVariable(value = "userId") long uid
     ) {
-        if (id == 1) {
-            return new FlowerPageDto(List.of(new Flower(1, "flower with id 1")));
-        }
-        if (id == 2) {
-            return new FlowerPageDto(List.of(new Flower(2, "flower with id 2")));
-        }
-        return new FlowerPageDto(List.of(new Flower(0, "-")));
+        return new FlowerPageDto(flowerService.getFlowersByUserId(uid));
     }
 }
