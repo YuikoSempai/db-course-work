@@ -7,12 +7,27 @@
 Ручки:
 
 - GET http://localhost:8080/api/flowers/1/flowers
+
 ```json
 {
   "flowerList": [
     {
       "id": 1,
-      "name": "flower with id 1"
+      "userId": 1,
+      "flowerSpecies": "rose",
+      "soil": "podzolic",
+      "fertilizerType": "organic",
+      "waterType": "crane",
+      "height": 10.0
+    },
+    {
+      "id": 2,
+      "userId": 2,
+      "flowerSpecies": "rose",
+      "soil": "podzolic",
+      "fertilizerType": "organic",
+      "waterType": "crane",
+      "height": 10.0
     }
   ]
 }
