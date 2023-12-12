@@ -22,7 +22,8 @@ public class UserDbServiceImpl implements UserDbService {
     public Long addUser(User user) {
         String sql = """
                 insert into users (username, password)
-                values (?, ?);
+                values (?, ?)
+                returning id
                 """;
 
         return jdbcTemplate.query(
