@@ -12,7 +12,7 @@ import lombok.Setter;
 @Setter
 @Builder
 public class Flower {
-    private long id;
+    private long id = 0L;
     private long userId;
     private String flowerSpecies;
     private String soil;

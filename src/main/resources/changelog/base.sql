@@ -9,13 +9,22 @@ CREATE TABLE user_flowers
 (
     id              SERIAL PRIMARY KEY,
     user_id         bigint,
-    flower_species  flower_species,
-    soil            resources_type,
-    fertilizer_type resources_type,
-    water_type      resources_type,
+    flower_species  varchar,
+    soil            varchar,
+    fertilizer_type varchar,
+    water_type      varchar,
     height          REAL
+);
+
+create sequence users_seq;
+create table users (
+                       id int default nextval('users_seq') primary key ,
+                       username text,
+                       password text,
+                       unique (username, password)
 );
 
 insert into user_flowers (user_id, flower_species, soil, fertilizer_type, water_type, height)
 values (1, 'rose', 'podzolic', 'organic', 'crane', 10),
        (2, 'rose', 'podzolic', 'organic', 'crane', 10);
+
