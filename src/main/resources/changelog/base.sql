@@ -24,6 +24,15 @@ create table users (
                        unique (username, password)
 );
 
+create table perfect_variant(
+    type text primary key,
+    soil text not null,
+    fertilizer text not null,
+    water text not null
+);
+
+create table flower_desiases
+
 insert into user_flowers (user_id, flower_species, soil, fertilizer_type, water_type, height)
 values (1, 'rose', 'podzolic', 'organic', 'crane', 10),
        (2, 'rose', 'podzolic', 'organic', 'crane', 10);

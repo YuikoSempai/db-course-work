@@ -1,7 +1,7 @@
 package com.yuiko.study.api;
 
 import com.yuiko.study.api.response.FlowerPageDto;
-import com.yuiko.study.api.response.ResponseWithMessage;
+import com.yuiko.study.api.response.Statistic;
 import com.yuiko.study.model.Flower;
 import com.yuiko.study.service.FlowerDbService;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -34,7 +34,7 @@ public class FlowerController {
     }
 
     @PostMapping("/{userId}/flowers/add")
-    public ResponseWithMessage addFlower(
+    public boolean addFlower(
             @PathVariable(value = "userId") long uid,
             @RequestBody Flower flower
     ) {
@@ -42,7 +42,7 @@ public class FlowerController {
     }
 
     @DeleteMapping("/{userId}/flowers")
-    public ResponseWithMessage deleteFlower(
+    public boolean deleteFlower(
             @PathVariable(value = "userId") long uid,
             @RequestParam("flowerId") Long flowerId
     ) {
@@ -50,7 +50,7 @@ public class FlowerController {
     }
 
     @PatchMapping("/{userId}/flowers")
-    public ResponseWithMessage updateFlower(
+    public boolean updateFlower(
             @PathVariable(value = "userId") long uid,
             @RequestBody Flower flower
     ) {
@@ -60,5 +60,9 @@ public class FlowerController {
         );
     }
 
-
+    @GetMapping("/{userId}/statistic")
+    public Statistic getStatistic(@PathVariable String userId) {
+//        return new Statistic();
+        return null;
+    }
 }
