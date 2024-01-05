@@ -3,6 +3,10 @@ package com.yuiko.study.util;
 
 import com.yuiko.study.model.Flower;
 import com.yuiko.study.model.User;
+import com.yuiko.study.model.enums.FertilizerType;
+import com.yuiko.study.model.enums.FlowerSpecies;
+import com.yuiko.study.model.enums.SoilType;
+import com.yuiko.study.model.enums.WaterType;
 import org.springframework.jdbc.core.RowMapper;
 
 public class DbMapper {
@@ -10,10 +14,10 @@ public class DbMapper {
     public static final RowMapper<Flower> FLOWER_ROW_MAPPER = (rs, idx) -> Flower.builder()
             .id(rs.getLong("id"))
             .userId(rs.getLong("user_id"))
-            .flowerSpecies(rs.getString("flower_species"))
-            .soil(rs.getString("soil"))
-            .fertilizerType(rs.getString("fertilizer_type"))
-            .waterType(rs.getString("water_type"))
+            .flowerSpecies(FlowerSpecies.valueOf(rs.getString("flower_species")))
+            .soil(SoilType.valueOf(rs.getString("soil")))
+            .fertilizerType(FertilizerType.valueOf(rs.getString("fertilizer_type")))
+            .waterType(WaterType.valueOf(rs.getString("water_type")))
             .height(rs.getDouble("height"))
             .build();
 

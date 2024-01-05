@@ -5,6 +5,10 @@ import java.util.List;
 
 import com.yuiko.study.model.CountByType;
 import com.yuiko.study.model.Flower;
+import com.yuiko.study.model.enums.FertilizerType;
+import com.yuiko.study.model.enums.FlowerSpecies;
+import com.yuiko.study.model.enums.SoilType;
+import com.yuiko.study.model.enums.WaterType;
 import com.yuiko.study.service.FlowerDbService;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +16,31 @@ import org.springframework.stereotype.Service;
 public class FlowerLocalDbService implements FlowerDbService {
 
     private final List<Flower> flowers = new ArrayList<>();
+    private Long idx = 0L;
+
+    public FlowerLocalDbService() {
+        flowers.addAll(List.of(
+                new Flower(
+                        ++idx,
+                        1,
+                        FlowerSpecies.fern,
+                        SoilType.sandy,
+                        FertilizerType.organic,
+                        WaterType.rainy,
+                        100
+                ),
+                new Flower(
+                        ++idx,
+                        2,
+                        FlowerSpecies.cactus,
+                        SoilType.loam,
+                        FertilizerType.organic,
+                        WaterType.rainy,
+                        200
+                )
+        ));
+
+    }
 
     @Override
     public List<Flower> getFlowersByUserId(long uid) {
@@ -20,7 +49,7 @@ public class FlowerLocalDbService implements FlowerDbService {
 
     @Override
     public boolean addFlower(long uid, Flower flower) {
-        return flowers.add(flower);
+        return flowers.add(flower.setId(++idx));
     }
 
     @Override

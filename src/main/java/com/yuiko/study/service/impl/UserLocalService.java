@@ -12,10 +12,27 @@ import org.springframework.stereotype.Service;
 public class UserLocalService implements UserService {
 
     List<User> users = new ArrayList<>();
+    private long idx = 0L;
+
+    public UserLocalService() {
+        users.addAll(List.of(
+                new User(
+                        ++idx,
+                        "Vlad",
+                        "123"
+                ),
+                new User(
+                        ++idx,
+                        "Ira",
+                        "123"
+                )
+        ));
+    }
 
     @Override
     public Long registerUser(User user) {
         users.add(user);
+        user.setId(++idx);
         return (long) users.size();
     }
 
