@@ -25,7 +25,7 @@ public class FlowerLocalDbService implements FlowerDbService {
         flowers.addAll(List.of(
                 new Flower(
                         ++idx,
-                        1,
+                        100,
                         FlowerSpecies.fern,
                         SoilType.sandy,
                         FertilizerType.organic,
@@ -34,7 +34,7 @@ public class FlowerLocalDbService implements FlowerDbService {
                 ),
                 new Flower(
                         ++idx,
-                        2,
+                        100,
                         FlowerSpecies.cactus,
                         SoilType.loam,
                         FertilizerType.organic,
