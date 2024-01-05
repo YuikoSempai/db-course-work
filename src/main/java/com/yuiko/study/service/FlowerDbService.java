@@ -2,6 +2,7 @@ package com.yuiko.study.service;
 
 import java.util.List;
 
+import com.yuiko.study.model.CheckedFlower;
 import com.yuiko.study.model.CountByType;
 import com.yuiko.study.model.Flower;
 
@@ -26,4 +27,6 @@ public interface FlowerDbService {
     List<Flower> getAffectedFlowerByLastWeek(long uid);
 
     Long getFlowerInPerfectPlace(long uid);
+
+    List<CheckedFlower> checkFlowerEnv(long uid);
 }

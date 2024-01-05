@@ -3,7 +3,10 @@ package com.yuiko.study.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.yuiko.study.model.BestEnvironmentUtils;
+import com.yuiko.study.model.CheckedFlower;
 import com.yuiko.study.model.CountByType;
+import com.yuiko.study.model.Environment;
 import com.yuiko.study.model.Flower;
 import com.yuiko.study.model.enums.FertilizerType;
 import com.yuiko.study.model.enums.FlowerSpecies;
@@ -107,6 +110,26 @@ public class FlowerLocalDbService implements FlowerDbService {
     @Override
     public Long getFlowerInPerfectPlace(long uid) {
         return 10L;
+    }
+
+    @Override
+    public List<CheckedFlower> checkFlowerEnv(long uid) {
+        List<CheckedFlower> checkedFlowers = new ArrayList<>();
+        for (Flower flower : flowers) {
+            if (flower.getUserId() != uid) {
+                continue;
+            }
+            Environment bestEnv = BestEnvironmentUtils.getBestEnvironmentForFlower(flower.getFlowerSpecies());
+            checkedFlowers.add(new CheckedFlower(
+                    flower.getId(),
+                    flower.getUserId(),
+                    flower.getFlowerSpecies(),
+                    flower.getSoil() == bestEnv.soilType(),
+                    flower.getFertilizerType() == bestEnv.fertilizerType(),
+                    flower.getWaterType() == bestEnv.waterType()
+            ));
+        }
+        return checkedFlowers;
     }
 
     private Integer getFlowerIdxByUid(long uid) {

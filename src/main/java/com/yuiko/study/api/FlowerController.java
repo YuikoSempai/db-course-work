@@ -1,7 +1,7 @@
 package com.yuiko.study.api;
 
+import com.yuiko.study.api.response.CheckedFlowerResponse;
 import com.yuiko.study.api.response.FlowerPageDto;
-import com.yuiko.study.api.response.Statistic;
 import com.yuiko.study.model.Flower;
 import com.yuiko.study.service.FlowerDbService;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -60,9 +60,8 @@ public class FlowerController {
         );
     }
 
-    @GetMapping("/{userId}/statistic")
-    public Statistic getStatistic(@PathVariable String userId) {
-//        return new Statistic();
-        return null;
+    @GetMapping("/{userId}/flowers/check")
+    public CheckedFlowerResponse checkFlowerEnv(@PathVariable long userId) {
+        return new CheckedFlowerResponse(flowerDbService.checkFlowerEnv(userId));
     }
 }
