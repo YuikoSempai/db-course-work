@@ -1,7 +1,6 @@
 package com.yuiko.study.api.response;
 
-import java.util.ArrayList;
+import java.util.List;
 
-public class ResourcesPageDto {
-    ArrayList<Resources> resourcesPage;
+public record ResourcesPageDto(List<UserResources> userResourcesPage) {
 }
