@@ -1,9 +1,12 @@
 package com.yuiko.study.api;
 
 import com.yuiko.study.api.response.ResourcesPageDto;
+import com.yuiko.study.api.response.UserResources;
 import com.yuiko.study.service.ResourcesService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,5 +25,13 @@ public class ResourcesController {
     @GetMapping("/{userId}")
     public ResourcesPageDto getResourcesByUser(@PathVariable long userId) {
         return resourcesService.getResourcesByUserId(userId);
+    }
+
+    @PostMapping("/{userId}")
+    public boolean addResourceForUser(
+            @PathVariable long userId,
+            @RequestBody UserResources userResources
+    ) {
+        return resourcesService.addResourcesForUser(userId, userResources);
     }
 }

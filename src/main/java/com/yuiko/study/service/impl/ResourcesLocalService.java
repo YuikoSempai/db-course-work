@@ -44,4 +44,9 @@ public class ResourcesLocalService implements ResourcesService {
                 userResourcesList.stream().filter(res -> res.userId() == uid).toList()
         );
     }
+
+    @Override
+    public boolean addResourcesForUser(long uid, UserResources userResources) {
+        return userResourcesList.add(userResources);
+    }
 }
