@@ -1,5 +1,6 @@
 package com.yuiko.study.api;
 
+
 import com.yuiko.study.api.response.ResourcesPageDto;
 import com.yuiko.study.api.response.UserResources;
 import com.yuiko.study.service.ResourcesService;
@@ -33,5 +34,13 @@ public class ResourcesController {
             @RequestBody UserResources userResources
     ) {
         return resourcesService.addResourcesForUser(userId, userResources);
+    }
+
+    @GetMapping("/{userId}/best_environment")
+    public ResourcesPageDto getResourcesForBestEnv(
+            @PathVariable long userId
+    ) {
+        return resourcesService.getResourcesByUserId(userId);
+
     }
 }
