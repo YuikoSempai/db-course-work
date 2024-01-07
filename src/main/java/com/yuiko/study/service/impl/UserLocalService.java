@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserLocalService implements UserService {
 
-    List<User> users = new ArrayList<>();
+    private final List<User> users = new ArrayList<>();
     private long idx = 0L;
 
     public UserLocalService() {

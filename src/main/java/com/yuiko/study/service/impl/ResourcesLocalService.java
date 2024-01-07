@@ -49,4 +49,9 @@ public class ResourcesLocalService implements ResourcesService {
     public boolean addResourcesForUser(long uid, UserResources userResources) {
         return userResourcesList.add(userResources);
     }
+
+    @Override
+    public ResourcesPageDto getBestEnv(long uid) {
+        return getResourcesByUserId(uid);
+    }
 }

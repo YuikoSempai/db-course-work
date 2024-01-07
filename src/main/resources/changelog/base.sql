@@ -31,6 +31,7 @@ values (1, 'rose', 'podzolic', 'organic', 'crane', 10),
 
 CREATE TABLE user_resources
 (
+    user_id     int,
     type        resources_type PRIMARY KEY,
     object_type object_type,
     volume      int
@@ -68,4 +69,17 @@ create table best_env
 insert into best_env (flower_species, soil, fertilizer_type, water_type, def_soil, def_fer, def_water)
 VALUES ('rose', 'sandy', 'organic', 'bottled', 1, 2, 3),
        ('tulip', 'sandy', 'organic', 'bottled', 10, 20, 30);
+
+CREATE TABLE user_diseases
+(
+    id             SERIAL PRIMARY KEY,
+    flower_id      int references user_flowers (id),
+    diseases_state diseases_state,
+    diseases_type  diseases_type
+);
+
+insert into  user_diseases (flower_id, diseases_state, diseases_type)
+VALUES (1, 'started', 'viral'),
+       (2, 'continuation', 'fungal');
+
 

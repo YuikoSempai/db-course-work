@@ -39,6 +39,6 @@ public class ResourcesController {
     public ResourcesPageDto getResourcesForBestEnv(
             @PathVariable long userId
     ) {
-        return resourcesService.getResourcesByUserId(userId);
+        return resourcesService.getBestEnv(userId);
     }
 }

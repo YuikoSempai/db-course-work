@@ -7,4 +7,6 @@ public interface ResourcesService {
     ResourcesPageDto getResourcesByUserId(long uid);
 
     boolean addResourcesForUser(long uid, UserResources userResources);
+
+    ResourcesPageDto getBestEnv(long uid);
 }
