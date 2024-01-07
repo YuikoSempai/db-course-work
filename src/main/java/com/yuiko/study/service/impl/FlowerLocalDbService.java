@@ -2,10 +2,11 @@ package com.yuiko.study.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
+import com.yuiko.study.api.response.Statistic;
 import com.yuiko.study.model.BestEnvironmentUtils;
 import com.yuiko.study.model.CheckedFlower;
-import com.yuiko.study.model.CountByType;
 import com.yuiko.study.model.Environment;
 import com.yuiko.study.model.Flower;
 import com.yuiko.study.model.enums.FertilizerType;
@@ -36,7 +37,7 @@ public class FlowerLocalDbService implements FlowerDbService {
                         ++idx,
                         100,
                         FlowerSpecies.cactus,
-                        SoilType.loam,
+                        SoilType.peat,
                         FertilizerType.organic,
                         WaterType.rainy,
                         200
@@ -76,43 +77,6 @@ public class FlowerLocalDbService implements FlowerDbService {
     }
 
     @Override
-    public Double getAverageHeight(long uid) {
-        double heightSum = 0.0;
-        for (Flower flower : flowers) {
-            heightSum += flower.getHeight();
-        }
-        return heightSum / flowers.size();
-    }
-
-    @Override
-    public Long getCountOfFlowers(long uid) {
-        return (long) flowers.size();
-    }
-
-    @Override
-    public CountByType getCountOfFlowersByType(long uid) {
-        // todo implement
-        return new CountByType(1);
-    }
-
-    @Override
-    public String getMostPopularDiseases(long uid) {
-        // todo implement
-        return "Not implemented :)";
-    }
-
-    @Override
-    public List<Flower> getAffectedFlowerByLastWeek(long uid) {
-        // todo implement
-        return List.of();
-    }
-
-    @Override
-    public Long getFlowerInPerfectPlace(long uid) {
-        return 10L;
-    }
-
-    @Override
     public List<CheckedFlower> checkFlowerEnv(long uid) {
         List<CheckedFlower> checkedFlowers = new ArrayList<>();
         for (Flower flower : flowers) {
@@ -130,6 +94,21 @@ public class FlowerLocalDbService implements FlowerDbService {
             ));
         }
         return checkedFlowers;
+    }
+
+    @Override
+    public Statistic getStatistic(long uid) {
+        return new Statistic(
+                10.0,
+                (long) flowers.size(),
+                Map.of(
+                        "rose", 10L,
+                        "tulip", 20L
+                ),
+                "some",
+                10L,
+                4L
+        );
     }
 
     private Integer getFlowerIdxByUid(long uid) {

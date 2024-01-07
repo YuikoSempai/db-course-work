@@ -40,6 +40,5 @@ public class ResourcesController {
             @PathVariable long userId
     ) {
         return resourcesService.getResourcesByUserId(userId);
-
     }
 }

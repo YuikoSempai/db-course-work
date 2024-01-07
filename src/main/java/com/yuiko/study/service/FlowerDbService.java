@@ -2,8 +2,8 @@ package com.yuiko.study.service;
 
 import java.util.List;
 
+import com.yuiko.study.api.response.Statistic;
 import com.yuiko.study.model.CheckedFlower;
-import com.yuiko.study.model.CountByType;
 import com.yuiko.study.model.Flower;
 
 public interface FlowerDbService {
@@ -16,17 +16,7 @@ public interface FlowerDbService {
 
     boolean deleteFlower(long uid, long flowerId);
 
-    Double getAverageHeight(long uid);
-
-    Long getCountOfFlowers(long uid);
-
-    CountByType getCountOfFlowersByType(long uid);
-
-    String getMostPopularDiseases(long uid);
-
-    List<Flower> getAffectedFlowerByLastWeek(long uid);
-
-    Long getFlowerInPerfectPlace(long uid);
+    Statistic getStatistic(long uid);
 
     List<CheckedFlower> checkFlowerEnv(long uid);
 }

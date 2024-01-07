@@ -5,7 +5,7 @@ CREATE TYPE resources_type AS ENUM ('sandy', 'loam', 'clay', 'peat_bogs', 'podzo
 CREATE TYPE object_type AS ENUM ('water', 'fertilizers', 'soil');
 CREATE TYPE light_type AS ENUM ('solar', 'phytolamp', 'led');
 
-CREATE TABLE user_flowers
+CREATE TABLE if not exists user_flowers
 (
     id              SERIAL PRIMARY KEY,
     user_id         bigint,
@@ -17,23 +17,55 @@ CREATE TABLE user_flowers
 );
 
 create sequence users_seq;
-create table users (
-                       id int default nextval('users_seq') primary key ,
-                       username text,
-                       password text,
-                       unique (username, password)
+create table users
+(
+    id       int default nextval('users_seq') primary key,
+    username text,
+    password text,
+    unique (username, password)
 );
-
-create table perfect_variant(
-    type text primary key,
-    soil text not null,
-    fertilizer text not null,
-    water text not null
-);
-
--- create table flower_desiases
 
 insert into user_flowers (user_id, flower_species, soil, fertilizer_type, water_type, height)
 values (1, 'rose', 'podzolic', 'organic', 'crane', 10),
-       (2, 'rose', 'podzolic', 'organic', 'crane', 10);
+       (2, 'tulip', 'podzolic', 'organic', 'crane', 10);
+
+CREATE TABLE user_resources
+(
+    type        resources_type PRIMARY KEY,
+    object_type object_type,
+    volume      int
+);
+
+INSERT INTO user_resources (type, object_type, volume)
+VALUES ('sandy', 'soil', 300),
+       ('loams', 'soil', 320),
+       ('clayey', 'soil', 350),
+       ('peat_bogs', 'soil', 400),
+       ('podzolic', 'soil', 330),
+       ('crane', 'water', 200),
+       ('rainy', 'water', 220),
+       ('borehole', 'water', 250),
+       ('bottled', 'water', 180),
+       ('salty', 'water', 210),
+       ('organic', 'fertilizers', 5),
+       ('mineral', 'fertilizers', 5),
+       ('organo_mineral', 'fertilizers', 7),
+       ('biological', 'fertilizers', 6),
+       ('leafy', 'fertilizers', 10);
+
+create table best_env
+(
+    id              serial primary key,
+    flower_species  flower_species,
+    soil            resources_type,
+    fertilizer_type resources_type,
+    water_type      resources_type,
+    def_soil        int,
+    def_fer         int,
+    def_water       int
+);
+
+insert into best_env (flower_species, soil, fertilizer_type, water_type, def_soil, def_fer, def_water)
+VALUES ('rose', 'sandy', 'organic', 'bottled', 1, 2, 3),
+       ('tulip', 'sandy', 'organic', 'bottled', 10, 20, 30);
 
