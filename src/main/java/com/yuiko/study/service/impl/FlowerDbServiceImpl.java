@@ -2,7 +2,6 @@ package com.yuiko.study.service.impl;
 
 import java.util.List;
 
-import com.yuiko.study.api.response.ResponseWithMessage;
 import com.yuiko.study.api.response.Statistic;
 import com.yuiko.study.model.CheckedFlower;
 import com.yuiko.study.model.Flower;
@@ -86,14 +85,6 @@ public class FlowerDbServiceImpl implements FlowerDbService {
                 """;
 
         return null;
-    }
-
-
-    private ResponseWithMessage wrapAnswer(long countOfRows) {
-        if (countOfRows != 0) {
-            return new ResponseWithMessage(200, "Action was performed");
-        }
-        return new ResponseWithMessage(400, "Action wasn't perform, some problems occurred");
     }
 
     private MapSqlParameterSource getFlowerParams(long uid, Flower flower) {
