@@ -5,6 +5,7 @@ import java.util.List;
 import com.yuiko.study.api.response.Statistic;
 import com.yuiko.study.model.CheckedFlower;
 import com.yuiko.study.model.Flower;
+import com.yuiko.study.model.Watering;
 
 public interface FlowerDbService {
 
@@ -16,7 +17,11 @@ public interface FlowerDbService {
 
     boolean deleteFlower(long uid, long flowerId);
 
-    Statistic getStatistic(long uid);
+    Statistic getStatistic();
 
     List<CheckedFlower> checkFlowerEnv(long uid);
+
+    boolean waterFlower(long uid, long flowerId);
+
+    List<Watering> getWateringSchedule(long uid);
 }

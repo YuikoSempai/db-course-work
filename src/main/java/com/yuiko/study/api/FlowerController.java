@@ -1,13 +1,10 @@
 package com.yuiko.study.api;
 
-import java.util.List;
-
 import com.yuiko.study.api.response.CheckedFlowerResponse;
 import com.yuiko.study.api.response.FlowerPageDto;
 import com.yuiko.study.api.response.Statistic;
 import com.yuiko.study.api.response.WaterPageDto;
 import com.yuiko.study.model.Flower;
-import com.yuiko.study.model.Watering;
 import com.yuiko.study.service.FlowerDbService;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -70,24 +67,21 @@ public class FlowerController {
         return new CheckedFlowerResponse(flowerDbService.checkFlowerEnv(userId));
     }
 
-    @GetMapping("/{userId}/statistic")
-    public Statistic getStatistic(@PathVariable long userId) {
-        return flowerDbService.getStatistic(userId);
+    @GetMapping("/statistic")
+    public Statistic getStatistic() {
+        return flowerDbService.getStatistic();
     }
 
     @GetMapping("/{userId}/flowers/water")
     public WaterPageDto getWateringSchedule(@PathVariable long userId) {
-        return new WaterPageDto(List.of(
-                new Watering(1, 100, false, "2024-05-12"),
-                new Watering(1, 200, true, "2023-05-21")
-        ));
+        return new WaterPageDto(flowerDbService.getWateringSchedule(userId));
     }
 
     @GetMapping("/{userId}/flowers/water/flowers")
-    public boolean getIsFlowerWater(
+    public boolean getIsFlowerWatered(
             @PathVariable(value = "userId") long uid,
             @RequestParam(value = "flowerId") Long flowerId
     ) {
-        return true;
+        return flowerDbService.waterFlower(uid, flowerId);
     }
 }

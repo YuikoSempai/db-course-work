@@ -9,6 +9,7 @@ import com.yuiko.study.model.BestEnvironmentUtils;
 import com.yuiko.study.model.CheckedFlower;
 import com.yuiko.study.model.Environment;
 import com.yuiko.study.model.Flower;
+import com.yuiko.study.model.Watering;
 import com.yuiko.study.model.enums.FertilizerType;
 import com.yuiko.study.model.enums.FlowerSpecies;
 import com.yuiko.study.model.enums.SoilType;
@@ -97,7 +98,17 @@ public class FlowerLocalDbService implements FlowerDbService {
     }
 
     @Override
-    public Statistic getStatistic(long uid) {
+    public boolean waterFlower(long uid, long flowerId) {
+        return false;
+    }
+
+    @Override
+    public List<Watering> getWateringSchedule(long uid) {
+        return null;
+    }
+
+    @Override
+    public Statistic getStatistic() {
         return new Statistic(
                 10.0,
                 (long) flowers.size(),
