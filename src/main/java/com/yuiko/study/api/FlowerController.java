@@ -83,10 +83,10 @@ public class FlowerController {
         ));
     }
 
-    @GetMapping("/{userId}/flowers")
+    @GetMapping("/{userId}/flowers/water/flowers")
     public boolean getIsFlowerWater(
             @PathVariable(value = "userId") long uid,
-            @RequestParam("flowerId") Long flowerId
+            @RequestParam(value = "flowerId") Long flowerId
     ) {
         return true;
     }
