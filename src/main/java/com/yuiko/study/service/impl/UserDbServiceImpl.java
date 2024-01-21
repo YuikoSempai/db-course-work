@@ -7,7 +7,9 @@ import com.yuiko.study.service.UserDbService;
 import com.yuiko.study.util.DbMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.SingleColumnRowMapper;
+import org.springframework.stereotype.Service;
 
+@Service
 public class UserDbServiceImpl implements UserDbService {
 
     private final JdbcTemplate jdbcTemplate;

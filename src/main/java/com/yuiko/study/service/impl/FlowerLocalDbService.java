@@ -15,9 +15,9 @@ import com.yuiko.study.model.enums.FlowerSpecies;
 import com.yuiko.study.model.enums.SoilType;
 import com.yuiko.study.model.enums.WaterType;
 import com.yuiko.study.service.FlowerDbService;
-import org.springframework.stereotype.Service;
+//import org.springframework.stereotype.Service;
 
-@Service
+//@Service
 public class FlowerLocalDbService implements FlowerDbService {
 
     private final List<Flower> flowers = new ArrayList<>();
@@ -89,7 +89,7 @@ public class FlowerLocalDbService implements FlowerDbService {
                     flower.getId(),
                     flower.getUserId(),
                     flower.getFlowerSpecies(),
-                    flower.getSoil() == bestEnv.soilType(),
+                    flower.getSoil() == bestEnv.soil(),
                     flower.getFertilizerType() == bestEnv.fertilizerType(),
                     flower.getWaterType() == bestEnv.waterType()
             ));
@@ -112,10 +112,7 @@ public class FlowerLocalDbService implements FlowerDbService {
         return new Statistic(
                 10.0,
                 (long) flowers.size(),
-                Map.of(
-                        "rose", 10L,
-                        "tulip", 20L
-                ),
+                List.of(),
                 "some",
                 10L,
                 4L

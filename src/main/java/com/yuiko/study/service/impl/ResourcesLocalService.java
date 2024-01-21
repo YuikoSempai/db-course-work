@@ -10,7 +10,7 @@ import com.yuiko.study.model.enums.Type;
 import com.yuiko.study.service.ResourcesService;
 import org.springframework.stereotype.Service;
 
-@Service
+//@Service
 public class ResourcesLocalService implements ResourcesService {
 
     private final List<UserResources> userResourcesList = new ArrayList<>();
@@ -21,7 +21,7 @@ public class ResourcesLocalService implements ResourcesService {
                         100,
                         1.0,
                         Type.soil,
-                        ResourcesType.clay
+                        ResourcesType.clayey
                 ),
                 new UserResources(
                         100,

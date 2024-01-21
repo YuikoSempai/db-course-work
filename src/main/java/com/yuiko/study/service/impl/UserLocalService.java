@@ -8,7 +8,7 @@ import com.yuiko.study.model.User;
 import com.yuiko.study.service.UserService;
 import org.springframework.stereotype.Service;
 
-@Service
+//@Service
 public class UserLocalService implements UserService {
 
     private final List<User> users = new ArrayList<>();

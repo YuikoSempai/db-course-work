@@ -1,8 +1,8 @@
 CREATE TYPE diseases_state AS ENUM ('started', 'continuation', 'advanced');
 CREATE TYPE diseases_type AS ENUM ('fungal', 'viral', 'bacterial', 'nematodes', 'physiological');
 CREATE TYPE flower_species AS ENUM ('rose', 'tulip', 'sunflower', 'lavender', 'oak_tree', 'daisy', 'maple_tree', 'cactus', 'fern', 'daffodil');
-CREATE TYPE resources_type AS ENUM ('sandy', 'loam', 'clay', 'peat_bogs', 'podzolic', 'crane', 'rainy', 'borehole', 'bottled', 'salty', 'organic', 'mineral', 'organo_mineral', 'biological', 'leafy');
-CREATE TYPE object_type AS ENUM ('water', 'fertilizers', 'soil');
+CREATE TYPE resources_type AS ENUM ('organic', 'potassium_nitrate', 'nitroammophoska', 'nitrophoska', 'ammophos', 'sandy', 'clayey', 'peat', 'podzolic', 'crane', 'rainy', 'bottled', 'salty', 'mineral');
+CREATE TYPE object_type AS ENUM ('water', 'fertilizer', 'soil');
 CREATE TYPE light_type AS ENUM ('solar', 'phytolamp', 'led');
 
 CREATE TABLE if not exists user_flowers
@@ -26,8 +26,8 @@ create table users
 );
 
 insert into user_flowers (user_id, flower_species, soil, fertilizer_type, water_type, height)
-values (1, 'rose', 'podzolic', 'organic', 'crane', 10),
-       (2, 'tulip', 'podzolic', 'organic', 'crane', 10);
+values (100, 'rose', 'podzolic', 'organic', 'crane', 10),
+       (100, 'tulip', 'podzolic', 'organic', 'crane', 10);
 
 CREATE TABLE user_resources
 (
@@ -37,22 +37,21 @@ CREATE TABLE user_resources
     volume      int
 );
 
-INSERT INTO user_resources (type, object_type, volume)
-VALUES ('sandy', 'soil', 300),
-       ('loams', 'soil', 320),
-       ('clayey', 'soil', 350),
-       ('peat_bogs', 'soil', 400),
-       ('podzolic', 'soil', 330),
-       ('crane', 'water', 200),
-       ('rainy', 'water', 220),
-       ('borehole', 'water', 250),
-       ('bottled', 'water', 180),
-       ('salty', 'water', 210),
-       ('organic', 'fertilizers', 5),
-       ('mineral', 'fertilizers', 5),
-       ('organo_mineral', 'fertilizers', 7),
-       ('biological', 'fertilizers', 6),
-       ('leafy', 'fertilizers', 10);
+INSERT INTO user_resources (user_id, type, object_type, volume)
+VALUES (100, 'organic', 'fertilizer', 0),
+       (100, 'potassium_nitrate', 'fertilizer', 0),
+       (100, 'nitroammophoska', 'fertilizer', 0),
+       (100, 'nitrophoska', 'fertilizer', 0),
+       (100, 'ammophos', 'fertilizer', 0),
+       (100, 'sandy', 'soil', 0),
+       (100, 'clayey', 'soil', 0),
+       (100, 'peat', 'soil', 0),
+       (100, 'podzolic','soil', 0),
+       (100, 'crane', 'water', 0),
+       (100, 'rainy', 'water', 0),
+       (100, 'bottled', 'water', 0),
+       (100, 'salty', 'water', 0),
+       (100, 'mineral', 'water', 0);
 
 create table best_env
 (
@@ -63,7 +62,8 @@ create table best_env
     water_type      resources_type,
     def_soil        int,
     def_fer         int,
-    def_water       int
+    def_water       int,
+    unique (flower_species)
 );
 
 insert into best_env (flower_species, soil, fertilizer_type, water_type, def_soil, def_fer, def_water)
@@ -73,13 +73,23 @@ VALUES ('rose', 'sandy', 'organic', 'bottled', 1, 2, 3),
 CREATE TABLE user_diseases
 (
     id             SERIAL PRIMARY KEY,
-    flower_id      int references user_flowers (id),
+    flower_id      int references user_flowers (id) on delete cascade,
     diseases_state diseases_state,
     diseases_type  diseases_type
 );
 
-insert into  user_diseases (flower_id, diseases_state, diseases_type)
+insert into user_diseases (flower_id, diseases_state, diseases_type)
 VALUES (1, 'started', 'viral'),
        (2, 'continuation', 'fungal');
 
+create table water_schedule
+(
+    user_id       int,
+    flower_id     int references user_flowers (id) on delete cascade on update set default primary key default 1,
+    watering_time timestamp with time zone
+);
 
+insert into water_schedule (user_id, flower_id, watering_time)
+VALUES (100, 1, now() - interval '2' day),
+       (100, 2, now() - interval '10' day)
+on conflict (flower_id) do update set watering_time = excluded.watering_time;

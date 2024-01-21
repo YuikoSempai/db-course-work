@@ -8,7 +8,9 @@ import com.yuiko.study.service.ResourcesService;
 import com.yuiko.study.util.DbMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ResourcesDbService implements ResourcesService {
 
     private final NamedParameterJdbcTemplate jdbcTemplate;
@@ -36,14 +38,16 @@ public class ResourcesDbService implements ResourcesService {
         String sql = """
                 insert into user_resources (user_id, type, object_type, volume)
                 VALUES (:uid, :type, :object_type, :volume)
+                on conflict (type) do update set
+                volume = excluded.volume
                 """;
 
         return jdbcTemplate.update(
                 sql,
                 new MapSqlParameterSource()
                         .addValue("uid", uid)
-                        .addValue("type", userResources.type(), Types.OTHER)
-                        .addValue("object_type", userResources.resourceType(), Types.OTHER)
+                        .addValue("object_type", userResources.type(), Types.OTHER)
+                        .addValue("type", userResources.resourceType(), Types.OTHER)
                         .addValue("volume", userResources.amount())
         ) > 0;
     }
@@ -70,7 +74,15 @@ public class ResourcesDbService implements ResourcesService {
                                         where be.water_type != uf.water_type
                                           and uf.user_id = :uid) as types
                                   group by resource, type)
-                select nr.user_id, nr.type, resources_type, case when ur.volume is null then nr.sum_val else nr.sum_val - ur.volume end
+                select
+                    nr.user_id as user_id,
+                    nr.type as object_type,
+                    resources_type as type,
+                    case
+                        when ur.volume is null
+                        then nr.sum_val
+                        else nr.sum_val - ur.volume
+                    end as volume
                 from need_res nr
                          left join user_resources as ur on nr.resources_type = ur.type
                 where ur.volume is null or nr.sum_val > ur.volume

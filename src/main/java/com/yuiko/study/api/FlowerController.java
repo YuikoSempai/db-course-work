@@ -1,8 +1,11 @@
 package com.yuiko.study.api;
 
+import java.util.List;
+
 import com.yuiko.study.api.response.CheckedFlowerResponse;
 import com.yuiko.study.api.response.FlowerPageDto;
 import com.yuiko.study.api.response.Statistic;
+import com.yuiko.study.api.response.StatisticPage;
 import com.yuiko.study.api.response.WaterPageDto;
 import com.yuiko.study.model.Flower;
 import com.yuiko.study.service.FlowerDbService;
@@ -68,8 +71,8 @@ public class FlowerController {
     }
 
     @GetMapping("/statistic")
-    public Statistic getStatistic() {
-        return flowerDbService.getStatistic();
+    public StatisticPage getStatistic() {
+        return new StatisticPage(List.of(flowerDbService.getStatistic()));
     }
 
     @GetMapping("/{userId}/flowers/water")

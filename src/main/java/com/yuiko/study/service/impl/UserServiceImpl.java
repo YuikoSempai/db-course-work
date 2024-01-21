@@ -6,7 +6,9 @@ import java.util.Optional;
 import com.yuiko.study.model.User;
 import com.yuiko.study.service.UserDbService;
 import com.yuiko.study.service.UserService;
+import org.springframework.stereotype.Service;
 
+@Service
 public class UserServiceImpl implements UserService {
 
     private final UserDbService userDbService;

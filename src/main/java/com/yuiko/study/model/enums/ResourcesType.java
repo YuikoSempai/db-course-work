@@ -2,18 +2,17 @@ package com.yuiko.study.model.enums;
 
 public enum ResourcesType {
     organic,
-    mineral,
-    organo_mineral,
-    biological,
-    leafy,
+    potassium_nitrate,
+    nitroammophoska,
+    nitrophoska,
+    ammophos,
     sandy,
-    loam,
-    clay,
-    peat_bogs,
+    clayey,
+    peat,
     podzolic,
     crane,
     rainy,
-    borehole,
     bottled,
-    salty
+    salty,
+    mineral
 }

@@ -4,5 +4,6 @@ public enum WaterType {
     crane,
     rainy,
     bottled,
-    salty
+    salty,
+    mineral
 }

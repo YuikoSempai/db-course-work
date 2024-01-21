@@ -1,11 +1,13 @@
 package com.yuiko.study.api.response;
 
-import java.util.Map;
+import java.util.List;
+
+import com.yuiko.study.model.FlowersBySpeciesCount;
 
 public record Statistic(
         Double height,
         Long flowersCount,
-        Map<String, Long> flowersCountBySpecies,
+        List<FlowersBySpeciesCount> flowersCountBySpecies,
         String popularDiseases,
         Long countDiseasedFlower,
         Long perfectFlowerCount
